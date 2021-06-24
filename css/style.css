@@ -1,0 +1,10 @@
+@charset "utf-8";
+body {
+	margin: 2em;
+}
+
+.row {
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
