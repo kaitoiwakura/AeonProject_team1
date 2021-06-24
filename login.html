@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+        <meta name="robots" content="none,noindex,nofollow">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./css/common.css">
+        <link rel="stylesheet" href="./css/style.css">
+        
+        <script src="./js/jquery-3.4.1.min.js"></script>
+        <script src="./js/script.js"></script>
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@900&display=swap" rel="stylesheet">
+
+        <title>ログイン</title>
+	</head>
+
+	<body>
+        <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_password_val -->
+        <div id="wrap" class="container">
+            
+            <div id="header"></div>
+        
+            <div class="row">
+                <h1>ログイン</h1>
+            </div>
+            <div class="row">
+                <div class="container m-3">
+                    <form name="user_register" method="POST" action="user_register.php">
+                        <div class="col-3" style="margin: auto;">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="col-3" style="margin: auto;">
+                          <label for="exampleInputPassword1" class="form-label">Password</label>
+                          <input type="password" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="margin: 1em">ログイン</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <a href="./change_password.html">パスワードをお忘れになった方はこちら</a>
+            </div>
+        </div>
+        <script src="./js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
