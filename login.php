@@ -22,5 +22,5 @@
 	} else {
 		$url = "Location:login.html";
 		header($url);
-	} 
+	}
 ?>
