@@ -20,8 +20,7 @@
 		$_SESSION['authority'] = (int) $user['authority'];
 		header("Location:index.html");
 	} else {
-		$url = "Location:login.php";
+		$url = "Location:login.html";
 		header($url);
-		echo $e = "メールアドレスかパスワードが違います";
 	} 
 ?>
