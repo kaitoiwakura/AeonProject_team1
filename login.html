@@ -29,14 +29,14 @@
             </div>
             <div class="row">
                 <div class="container m-3">
-                    <form name="user_register" method="POST" action="user_register.php">
+                    <form name="user_register" method="POST" action="login.php">
                         <div class="col-3" style="margin: auto;">
                             <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="mail">
                         </div>
                         <div class="col-3" style="margin: auto;">
                           <label for="exampleInputPassword1" class="form-label">Password</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                          <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                         </div>
 
                         <button type="submit" class="btn btn-primary" style="margin: 1em">ログイン</button>
