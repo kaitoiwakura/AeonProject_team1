@@ -1,1 +1,20 @@
 @charset "utf-8";
+body {
+	margin: 1em;
+}
+
+#wrap {
+	width: 80%;
+}
+
+#header {
+	margin-bottom: 5em;
+}
+
+.navbar {
+	width: 80%;
+}
+
+button {
+	margin: auto;
+}
