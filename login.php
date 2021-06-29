@@ -3,6 +3,7 @@
 	session_start();
 	session_regenerate_id();	//セッションID更新
 
+	echo "test0629";
 	$mail = $_POST['mail'];
 	$password = (string)$_POST['password'];
 
