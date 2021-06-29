@@ -1,4 +1,4 @@
-$(function() {
+/* $(function() {
     $('#confirm_btn').click(function(){
         $('#entry_btn').removeAttr('disabled');
     });
@@ -39,9 +39,20 @@ $(function() {
         e.preventDefault();
        $(this).parents('tr').remove();
     });
-});
+}); */
 
 $(function(){
     $("#header").load("header.html");
     $("#footer").load("footer.html");
+});
+
+//formで変更された部分だけsubmitする処理
+$(document).ready(function() {
+  $('input, select, textarea').on('change', function() {
+    $(this).addClass('changed');
+  });
+  
+  $('form').on('submit', function() {
+    $('input:not(.changed), select:not(.changed),  textarea:not(.changed)').prop('disabled', true);
+  });
 });
