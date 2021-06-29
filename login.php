@@ -17,7 +17,7 @@
 	if(password_verify($_POST['password'], $user['password'])) {
 		$_SESSION['name'] = $user['name'];
 		$_SESSION['mail'] = $user['mail'];
-		$_SESSION['password'] = $user['password'];
+		$_SESSION['id'] = (int)$user['id'];
 		$_SESSION['authority'] = (int) $user['authority'];
 		header("Location:index.html");
 	} else {
