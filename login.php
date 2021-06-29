@@ -6,14 +6,14 @@
 	$mail = $_POST['mail'];
 	$password = (string)$_POST['password'];
 
-	$con = new connect();
-	$pdo = $con->connectdb();
+	$con = new connect();	//クラス呼び出し
+	$pdo = $con->connectdb(); //pdo作成
 
 	echo "0629";
 
-	$stmt = $pdo->prepare('SELECT * FROM users WHERE mail = :mail');
+	$stmt = $pdo->prepare('SELECT * FROM users WHERE mail = :mail');	//sql文作成
 	$stmt->bindvalue(':mail', $mail, PDO::PARAM_STR);
-	$stmt->execute();
+	$stmt->execute();	//sql実行
 	$user = $stmt->fetch();
 	if(password_verify($_POST['password'], $user['password'])) {
 		$_SESSION['name'] = $user['name'];
