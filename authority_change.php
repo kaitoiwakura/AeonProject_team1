@@ -18,16 +18,22 @@
 	<body>
 		<div id="wrap" class="container">
 			<div id="header"></div>
-			<div class="container">
-				<div class="list-group mx-auto list-group-flush" style="width:70%;">
-					<a href="./users_list.php" class="list-group-item list-group-item-action">権限設定</a>
-					<a href="#" class="list-group-item list-group-item-action">ニュース追加</a>
-					<a href="#" class="list-group-item list-group-item-action">ニュース一覧</a>
-					<a href="#" class="list-group-item list-group-item-action">更新ログ</a>
+			<div class="container" style="width: 70%">
+				<div style="color: #999999">
+					<?php
+						//ユーザー権限の処理を書いて～
+						print "<p class='lead'>権限が変更されたユーザー一覧：</p>";
+						foreach ($_POST as $key => $value) {
+							print "ユーザーID : ".$key." ➔ 権限 : ".$value."<br>";
+						}
+					?>
 				</div>
+
+				<p class="text-center align-middle mt-4">
+					ユーザーの権限を更新しました。
+				</p>
 			</div>
 		</div>
 		<script src="./js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>
-<!-- 確認 -->
