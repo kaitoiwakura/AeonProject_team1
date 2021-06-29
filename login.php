@@ -9,6 +9,8 @@
 	$con = new connect();
 	$pdo = $con->connectdb();
 
+	echo "0629";
+
 	$stmt = $pdo->prepare('SELECT * FROM users WHERE mail = :mail');
 	$stmt->bindvalue(':mail', $mail, PDO::PARAM_STR);
 	$stmt->execute();
