@@ -6,13 +6,13 @@
 	$mail = $_POST['mail'];
 	$password = (string)$_POST['password'];
 
-	$con = new connect();
-	$pdo = $con->connectdb();
+	$con = new connect();	//クラス呼び出し
+	$pdo = $con->connectdb();	//PDo作成
 
 	$stmt = $pdo->prepare('SELECT * FROM users WHERE mail = :mail');
 	$stmt->bindvalue(':mail', $mail, PDO::PARAM_STR);
-	$stmt->execute();
-	$user = $stmt->fetch();
+	$stmt->execute();	//sql実行
+	$user = $stmt->fetch();	//ユーザーデータを配列化
 	if(password_verify($_POST['password'], $user['password'])) {
 		$_SESSION['name'] = $user['name'];
 		$_SESSION['mail'] = $user['mail'];
