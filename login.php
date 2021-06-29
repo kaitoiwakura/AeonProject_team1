@@ -3,7 +3,6 @@
 	session_start();
 	session_regenerate_id();	//セッションID更新
 
-	echo "test0629";
 	$mail = $_POST['mail'];
 	$password = (string)$_POST['password'];
 
@@ -17,7 +16,7 @@
 	if(password_verify($_POST['password'], $user['password'])) {
 		$_SESSION['name'] = $user['name'];
 		$_SESSION['mail'] = $user['mail'];
-		$_SESSION['password'] = $user['password'];
+		$_SESSION['id'] = (int)$user['id'];
 		$_SESSION['authority'] = (int) $user['authority'];
 		header("Location:index.html");
 	} else {
