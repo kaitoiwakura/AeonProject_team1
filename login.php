@@ -9,6 +9,7 @@
 	$con = new connect();	//クラス呼び出し
 	$pdo = $con->connectdb();	//PDo作成
 
+	//0629-1355
 	$stmt = $pdo->prepare('SELECT * FROM users WHERE mail = :mail');
 	$stmt->bindvalue(':mail', $mail, PDO::PARAM_STR);
 	$stmt->execute();	//sql実行
