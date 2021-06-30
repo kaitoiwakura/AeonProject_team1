@@ -1,18 +1,24 @@
 <?php
-	require 'db_connect.php';
+	require 'connect.php';
 
 	$list = "";
 
 	//ユーザー名を取得
-	$sql = "SELECT id, name, authority FROM users";
-	$query = mysqli_query($con,$sql) or die("SQL失敗");
-	if (mysqli_num_rows($query) == 0) {
+	$con = new connect();
+	$pdo = $con->connectdb();
+
+	$stmt = $pdo->prepare('SELECT id ,name, authority FROM users');
+	$stmt->execute();
+
+	$list = "";
+	if($stmt->columnCount() === 0) {
 		$list = "データがありません";
 	} else {
-		while ($result = mysqli_fetch_array($query)) {
-			$users_list[] = $result;
-			$list .= "<tr><td>".$result[1]."</td><td class='col-4'>";
-			$list .= "<select name='".$result[0]."' class='form-select'>";
+		$users = $stmt->fetchall();
+		foreach($users as $user) {
+			$users_list[] = $user;	//jsにデータを渡すための変数
+			$list .= "<tr><td>".$user['name']."</td><td class='col-4'>";
+			$list .= "<select name='".$user['id']."' class='form-select'>";
 			$list .= "<option value='0'>管理者</option><option value='1'>編集者</option></select></td></tr>";
 		}
 	}
@@ -77,13 +83,13 @@
 		<script src="./js/bootstrap.bundle.min.js"></script>
 
 		<script type="text/javascript">
-			var users_list = <?php echo json_encode($users_list); ?>;
-			console.log(users_list);
+			//権限情報をセレクトタグに設定
+			let users_list = <?php echo json_encode($users_list); ?>;
 
-			var selector;
+			let selector;
 			users_list.forEach(function(item, i) {
-					selector = document.getElementsByName(item[0]);
-					$(selector).val(item[2]);
+					selector = document.getElementsByName(item["id"]);
+					$(selector).val(item["authority"]);
 			});
 		</script>
 	</body>
