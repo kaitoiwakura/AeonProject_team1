@@ -9,15 +9,14 @@
 	$con = new connect();	//クラス呼び出し
 	$pdo = $con->connectdb();	//PDo作成
 
-	//0629-1405
 	$stmt = $pdo->prepare('SELECT * FROM users WHERE mail = :mail');
 	$stmt->bindvalue(':mail', $mail, PDO::PARAM_STR);
 	$stmt->execute();	//sql実行
 	$user = $stmt->fetch();	//ユーザーデータを配列化
 	if(password_verify($_POST['password'], $user['password'])) {
+		$_SESSION['id'] = (int)$user['id'];
 		$_SESSION['name'] = $user['name'];
 		$_SESSION['mail'] = $user['mail'];
-		$_SESSION['id'] = (int)$user['id'];
 		$_SESSION['authority'] = (int) $user['authority'];
 		header("Location:index.html");
 	} else {
