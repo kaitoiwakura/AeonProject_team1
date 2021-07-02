@@ -1,1 +1,30 @@
 @charset "utf-8";
+body {
+	margin: 1em;
+}
+
+#wrap {
+	width: 80%;
+	padding-top: 5em;
+}
+
+.navbar {
+	width: 80%;
+}
+
+button {
+	margin: 1em auto;
+}
+
+table button {
+	margin: 0;
+}
+
+h1 {
+	font-size: 2em;
+	margin: 1em;
+}
+
+#hal, #aeon {
+	display: none;
+}
