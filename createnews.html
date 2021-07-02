@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>1</h1>
+	<!-- ニュース作成用フォームのひな形 name属性だけは指定されてるのを使って -->
+	<form action="createnews.php" id="newsform" method="POST" enctype="multipart/form-data">
+		<label for="title">タイトル</label>
+		<input type="text" name="title"><br>
+		<label for="content">本文</label>
+		<textarea name="content" rows="4" cols="40"></textarea><br>
+		<input type="submit" value="作成">
+	</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){	//セレクタの内容をDBから取得して表示
+			$.ajax({
+				tpe: "POST",
+				url: "loadcategory.php",
+				cache: false
+			}).done(function(data){
+				let result =JSON.parse(data);
+				/**
+				 * resultの中身、値の内容個数は可変
+				 * { "contents":["A","BBB"],
+				 * 	"news":["Cc","DD","ee"]}
+				 * result["contents"][0] = A
+				 * result["news"][2] = ee
+				 */
+				
+				let content ='<select name="contents_category">';
+				for(let element of result["contents"]) {
+					content +='<option value="' + element + '" name="contentCategory">' + element + '</option>';
+				}
+				content +='</select>';
+				$('#newsform').append(content);
+
+				let news ='<select name="news_category">';
+				for(let element of result["news"]) {
+					news +='<option value="' + element + '" name="newsCategory">' + element + '</option>';
+				}
+				news +='</select>';
+				$('#newsform').append(news);
+
+				}).fail(function(){
+				alert("loadcategory.phpエラー")
+			});
+		});
+	</script>
+</body>
+</html>
