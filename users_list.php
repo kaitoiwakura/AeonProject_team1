@@ -32,7 +32,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link rel="stylesheet" href="./css/bootstrap.min.css">
-		<link rel="stylesheet" href="./css/common.css">
 		<link rel="stylesheet" href="./css/style.css">
 		
 		<script src="./js/jquery-3.4.1.min.js"></script>
@@ -62,6 +61,10 @@
 						</button>
 					</div>
 				</form>
+			</div>
+
+			<div class="row mx-auto" style="width: fit-content;">
+				<a href="./account_create.html" style="font-size: 0.9rem;">新しいアカウントを作成する</a>
 			</div>
 		</div>
 
