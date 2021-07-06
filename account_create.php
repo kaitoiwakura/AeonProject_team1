@@ -1,7 +1,7 @@
 <?php
   require 'connect.php';
-  session_start();
-  session_regenerate_id();	//セッションID更新
+  /* session_start();
+  session_regenerate_id();	//セッションID更新 */
 
   // $_SESSION['id'] = (int)$user['id'];
   // $_SESSION['name'] = $user['name'];
@@ -27,20 +27,20 @@
       $authority = $_POST['authority'];
 
       //エラー処理
-      try {
+      //try {
         $con = new connect();
         $pdo = $con->connectdb();
 
 
-        $sql ='INSERT INTO
+        $sql ="INSERT INTO
         users(name, password, mail, authority)
-        VALUES ($name,$mail,$password,$authority)';
+        VALUES ('$name','$mail','$password','$authority');";
 
-        print $sql;
+        //print $sql;
 
-        // $stmt = $pdo->prepare($sql);
+        $stmt = $pdo->prepare($sql);
 
-        // $stmt->execute();
+        $stmt->execute();
 
         //dsn='mysql:dbname=EC;charset=utf8';
         //stmt = $pdo -> prepare("INSERT INTO users(name,mail,password,password2,authority))
@@ -49,8 +49,8 @@
   //     }catch(PDOException $e){
   //       //DBエラー
   //       $errorMessage = 'データベースエラー';
-  //     }
-  //   }
+       
+     }
   // else{
   //     $errorMessage = 'パスワードに誤りがあります。';}
 
