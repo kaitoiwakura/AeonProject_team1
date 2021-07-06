@@ -1,16 +1,40 @@
 <?php
+// データベース接続
+$pdo = new PDO("mysql:192.168.179.5;dbname=AEON;charset=utf8", "root", "");
+
+// SQL文
+$sql="SELECT title,process_status,updated_at from contents;";
+//PDOに渡す
+$stmt = $pdo->prepare($sql);
+//実行
+$stmt -> execute();
+
+// fetchで一文ずつ表示を繰り返し
+while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
+	print_r($row);
+	echo("<br/>");
+}
 	//変数(仮)
 	$id = 0;
-	$title = "タイトル";
-	$status = "処理状況";
-	$log = "更新ログ";
+	// $title = "タイトル";
+	// $status = "処理状況";
+	// $log = "更新ログ";
+
+	print_r($_POST);
+
 
 	//お知らせ一覧(仮)
 	$list1 = "";
 	for ($i = 1; $i < 5; $i++) {
 		$id = $i;
 
-		$list1 .= "<tr><td>".$title."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td></tr>";
+		$list1 .= "<tr><td>".$row["title"]."</td>
+		<td>".$row["process_status"]."</td>
+		<td>".$row["updated_at"]."</td>
+		<td>
+			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
+		</td>
+		</tr>";
 	}
 
 	//HAL学生制作一覧(仮)
@@ -18,7 +42,12 @@
 	for ($i = 6; $i < 9; $i++) {
 		$id = $i;
 
-		$list2 .= "<tr><td>".$title."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td></tr>";
+		$list2 .= "<tr><td>".$row["title"]."</td>
+		<td>".$row["process_status"]."</td>
+		<td>".$row["updated_at"]."</td>
+		<td>
+			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
+		</td></tr>";
 	}
 
 	//企業商品紹介一覧(仮)
@@ -27,8 +56,16 @@
 	for ($i = 10; $i < 12; $i++) {
 		$id = $i;
 
-		$list3 .= "<tr><td>".$title."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td></tr>";
+		$list3 .= "<tr><td>".$row["title"]."</td>
+		<td>".$row["process_status"]."</td>
+		<td>".$row["updated_at"]."</td>
+		<td>
+			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
+		</td></tr>";
 	}
+
+
+	
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +89,7 @@
 			<div id="header"></div>
 			
 			<div class="container" style="width: 70%">
-			<form method="POST" action="content_edit.php">
+			<form method="POST" action="contents_list.php">
 				
 				<!-- カテゴリー選択 -->
 				<div class="row justify-content-end">
