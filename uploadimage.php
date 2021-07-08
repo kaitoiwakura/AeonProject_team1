@@ -5,7 +5,7 @@
 	// 未定義である・複数ファイルである・$_FILES Corruption 攻撃を受けた
   // どれかに該当していれば不正なパラメータとして処理する
 	if (!isset($_FILES['upimage']['error']) || !is_int($_FILES['upimage']['error'])) {
-		header("Location:../createnews/imageUpload.php");
+		header("Location:imageform.php");
 		exit();
 	}
 
@@ -18,21 +18,22 @@
 			case "image/png":
 				$ext = ".png";
 				break;
-			case "image/jpeg":
+			case "image/jpg":
+			case "image/jpeg";
 				$ext = ".jpg";
 				break;
 			case "image/gif":
 				$ext = ".gif";
 				break;
-			default:
-				header("Location:../createnews/imageUpload.php");
-				exit();
+			default:	//画像以外選択時
+			header("Location:imageform.php");
+			exit();
 	}
 
 	//一時ファイルへの保存失敗時
 	if(!is_uploaded_file($_FILES['upimage']['tmp_name']) || 
 		$_FILES['upimage']['error'] !== UPLOAD_ERR_OK) {
-			header("Location:../createnews/imageUpload.php");
+			header("Location:imageform.php");
 			exit();
 	}
 
@@ -56,8 +57,7 @@
 		} catch (PDOException $e) {
 			//エラー発生時画像を消去して戻る
 			unlink($path.$name);
-			header("Location:../createnews/imageUpload.php");
-			exit();
+			header("Location:imageform.php");
 		}
 	}
 ?>

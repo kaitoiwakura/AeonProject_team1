@@ -5,4 +5,5 @@ post_test.php
 
 createnews_raw.html
 
-upload/images/
+# アップロードディレクトリ
+/upload/images

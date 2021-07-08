@@ -1,24 +1,73 @@
 <?php
-	//変数(仮)
-	$id = 0;
-	$title = "タイトル";
-	$status = "処理状況";
-	$log = "更新ログ";
+// データベース接続
+require('connect.php');
+$con = new connect();
+$pdo = $con->connectdb();
+//$pdo = new PDO("mysql:dbname=AEON;host=localhost;charset=utf8", "root", "");
 
+// SQL文
+$sql="SELECT title,process_status,updated_at from contents;";
+//PDOに渡す
+$stmt = $pdo->prepare($sql);
+//実行
+$stmt -> execute();
+
+function console_log( $data ){
+	echo '<script>';
+	echo 'console.log('. json_encode( $data ) .')';
+	echo '</script>';
+  }
+
+  //変数(仮)
+	$id = 0;
+	 $title = "";
+	 $status = "";
+	 $log = "";
+
+	print_r($_POST);
+
+// fetchで一文ずつ表示を繰り返し
+while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
+	//行番号用変数を用意
+	$i=1;
+		//連想配列すべてを読み出すまでループ<td>これなに'.$val.'('.$key.')</td>
+		foreach($row as $key => $val){
+			//番号とテーブル名とキーを表示
+			print '<tr><td>行番号'.$i.'</td>
+			<td>タイトル'.$val.'('.$title.')</td>
+			<td>処理状態'.$val.'('.$status.')</td>
+			<td>更新ログ'.$val.'('.$log.')</td></tr><br/>';
+			$i+=1;
+		}
+		$i+=1;
+	echo("<br/>");
+	  
+	  console_log( array($row) );
+}
 	//お知らせ一覧(仮)
 	$list1 = "";
 	for ($i = 1; $i < 5; $i++) {
 		$id = $i;
 
-		$list1 .= "<tr><td>".$title."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td></tr>";
+		$list1 .= "<tr><td>".$row[$id]["title"]."</td>
+		<td>".$row["process_status"]."</td>
+		<td>".$row["updated_at"]."</td>
+		<td>
+			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
+		</td>
+		</tr>";
 	}
 
 	//HAL学生制作一覧(仮)
 	$list2 = "";
 	for ($i = 6; $i < 9; $i++) {
 		$id = $i;
-
-		$list2 .= "<tr><td>".$title."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td></tr>";
+		$list2 .= "<tr><td>".$row["title"]."</td>
+		<td>".$row["process_status"]."</td>
+		<td>".$row["updated_at"]."</td>
+		<td>
+			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
+		</td></tr>";
 	}
 
 	//企業商品紹介一覧(仮)
@@ -27,8 +76,16 @@
 	for ($i = 10; $i < 12; $i++) {
 		$id = $i;
 
-		$list3 .= "<tr><td>".$title."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td></tr>";
+		$list3 .= "<tr><td>".$row["title"]."</td>
+		<td>".$row["process_status"]."</td>
+		<td>".$row["updated_at"]."</td>
+		<td>
+			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
+		</td></tr>";
 	}
+
+
+	
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +109,7 @@
 			<div id="header"></div>
 			
 			<div class="container" style="width: 70%">
-			<form method="POST" action="content_edit.php">
+			<form method="POST" action="contents_list.php">
 				
 				<!-- カテゴリー選択 -->
 				<div class="row justify-content-end">
