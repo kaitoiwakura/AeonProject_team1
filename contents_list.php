@@ -1,6 +1,9 @@
 <?php
 // データベース接続
-$pdo = new PDO("mysql:192.168.179.5;dbname=AEON;charset=utf8", "root", "");
+require('connect.php');
+$con = new connect();
+$pdo = $con->connectdb();
+//$pdo = new PDO("mysql:dbname=AEON;host=localhost;charset=utf8", "root", "");
 
 // SQL文
 $sql="SELECT title,process_status,updated_at from contents;";
@@ -9,26 +12,44 @@ $stmt = $pdo->prepare($sql);
 //実行
 $stmt -> execute();
 
-// fetchで一文ずつ表示を繰り返し
-while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
-	print_r($row);
-	echo("<br/>");
-}
-	//変数(仮)
+function console_log( $data ){
+	echo '<script>';
+	echo 'console.log('. json_encode( $data ) .')';
+	echo '</script>';
+  }
+
+  //変数(仮)
 	$id = 0;
-	// $title = "タイトル";
-	// $status = "処理状況";
-	// $log = "更新ログ";
+	 $title = "";
+	 $status = "";
+	 $log = "";
 
 	print_r($_POST);
 
-
+// fetchで一文ずつ表示を繰り返し
+while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
+	//行番号用変数を用意
+	$i=1;
+		//連想配列すべてを読み出すまでループ<td>これなに'.$val.'('.$key.')</td>
+		foreach($row as $key => $val){
+			//番号とテーブル名とキーを表示
+			print '<tr><td>行番号'.$i.'</td>
+			<td>タイトル'.$val.'('.$title.')</td>
+			<td>処理状態'.$val.'('.$status.')</td>
+			<td>更新ログ'.$val.'('.$log.')</td></tr><br/>';
+			$i+=1;
+		}
+		$i+=1;
+	echo("<br/>");
+	  
+	  console_log( array($row) );
+}
 	//お知らせ一覧(仮)
 	$list1 = "";
 	for ($i = 1; $i < 5; $i++) {
 		$id = $i;
 
-		$list1 .= "<tr><td>".$row["title"]."</td>
+		$list1 .= "<tr><td>".$row[$id]["title"]."</td>
 		<td>".$row["process_status"]."</td>
 		<td>".$row["updated_at"]."</td>
 		<td>
@@ -41,7 +62,6 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 	$list2 = "";
 	for ($i = 6; $i < 9; $i++) {
 		$id = $i;
-
 		$list2 .= "<tr><td>".$row["title"]."</td>
 		<td>".$row["process_status"]."</td>
 		<td>".$row["updated_at"]."</td>
