@@ -61,10 +61,10 @@
 						</button>
 					</div>
 				</form>
-			</div>
 
-			<div class="row mx-auto" style="width: fit-content;">
-				<a href="./account_create.html" style="font-size: 0.9rem;">新しいアカウントを作成する</a>
+				<div class="row mx-auto" style="width: fit-content;">
+					<a href="./account_create.html" style="font-size: 0.9rem;">新しいアカウントを作成する</a>
+				</div>
 			</div>
 		</div>
 

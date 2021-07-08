@@ -35,23 +35,25 @@
 		<script src="./js/jquery-3.4.1.min.js"></script>
 		<script src="./js/script.js"></script>
 
-		<title>トップページ</title>
+		<title>ユーザー権限変更</title>
 	</head>
 
 	<body>
 		<div id="wrap" class="container">
 			<div id="header"></div>
+
 			<div class="container" style="width: 70%">
-				<div style="color: #999999">
+				<!-- <div style="color: #999999">
 					<?php
 						print "<p class='lead'>権限が変更されたユーザー一覧：</p>";
 						print $updateResult;
 					?>
-				</div>
+				</div> -->
 
-				<p class="text-center align-middle mt-4">
-					ユーザーの権限を更新しました。
-				</p>
+				<div class="row mx-auto text-center" style="width: fit-content;">
+					<p>ユーザーの権限を更新しました。</p>
+					<p><a href="./users_list.php" style="font-size: 0.9rem;">ユーザー一覧に戻る</a></p>
+				</div>
 			</div>
 		</div>
 		<script src="./js/bootstrap.bundle.min.js"></script>

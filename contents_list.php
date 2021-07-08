@@ -57,7 +57,7 @@
 				<!-- カテゴリー選択 -->
 				<div class="row justify-content-end">
 					<div class="col-5 mb-4">
-						<select name="content_category" class="form-select" aria-label="Select Category" >
+						<select name="content_category" class="form-select">
 							<option value="news" selected>お知らせ</option>
 							<option value="hal">HAL学生制作</option>
 							<option value="aeon">企業商品紹介</option>
