@@ -27,7 +27,7 @@
       $authority = $_POST['authority'];
 
       //エラー処理
-      //try {
+      try {
         $con = new connect();
         $pdo = $con->connectdb();
 
@@ -42,16 +42,47 @@
 
         $stmt->execute();
 
-        //dsn='mysql:dbname=EC;charset=utf8';
-        //stmt = $pdo -> prepare("INSERT INTO users(name,mail,password,password2,authority))
+        header("Location:index.html");
+        $signUpMessage = '登録が完了しました';
 
-  //       $signUpMessage = '登録が完了しました';
-  //     }catch(PDOException $e){
-  //       //DBエラー
-  //       $errorMessage = 'データベースエラー';
-       
-     }
-  // else{
-  //     $errorMessage = 'パスワードに誤りがあります。';}
-
+      }catch(PDOException $e){
+        //DBエラー
+        $errorMessage = 'データベースエラー';
+      }
+    }else{
+      $errorMessage = 'パスワードに誤りがあります。';}
 ?>
+
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta name="robots" content="none,noindex,nofollow">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="./css/bootstrap.min.css">
+		<link rel="stylesheet" href="./css/style.css">
+
+		<script src="./js/jquery-3.4.1.min.js"></script>
+		<script src="./js/script.js"></script>
+
+    <title></title>
+	</head>
+  <body>
+		<div id="wrap" class="container">
+			<div id="header"></div>
+			<div class="container" style="width: 70%">
+				<div style="color: #999999">
+					<?php
+						print $$signUpMessage;
+					?>
+				</div>
+
+				<p class="text-center align-middle mt-4">
+
+				</p>
+			</div>
+		</div>
+		<script src="./js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
