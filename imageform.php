@@ -30,7 +30,7 @@
 		<div id="wrap" class="container">
 			<div id="header"></div>
 
-			<div class="container" style="width: 70%">
+			<div class="container mini-wrap">
 				<div class="row align-items-center align-self-center">
 					<!-- php側で$_FILES['input type=fileのname']でデータを取得する -->
 					<form action="uploadimage.php" id="imageform" method="POST" enctype="multipart/form-data">
