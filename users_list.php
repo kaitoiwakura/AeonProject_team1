@@ -44,7 +44,7 @@
 		<div id="wrap" class="container">
 			<div id="header"></div>
 
-			<div class="container" style="width: 70%">
+			<div class="container mini-wrap">
 				<form id="changeAuthority" name="changeAuthority" method="post" action="authority_change.php">
 					<div class="row">
 						<table class="table table-hover">

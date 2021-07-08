@@ -1,4 +1,5 @@
 <?php
+/* 
 // データベース接続
 require('connect.php');
 $con = new connect();
@@ -82,9 +83,40 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 		<td>
 			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
 		</td></tr>";
+	} 
+*/
+
+	//変数(仮)
+	$id = 0;
+	$title = "タイトル";
+	$creator = "作成者";
+	$status = "処理状況";
+	$log = "更新ログ";
+
+	//お知らせ一覧(仮)
+	$list1 = "";
+	for ($i = 1; $i < 5; $i++) {
+		$id = $i;
+
+		$list1 .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
 	}
 
+	//HAL学生制作一覧(仮)
+	$list2 = "";
+	for ($i = 6; $i < 9; $i++) {
+		$id = $i;
 
+		$list2 .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
+	}
+
+	//企業商品紹介一覧(仮)
+	$list3 = "";
+
+	for ($i = 10; $i < 12; $i++) {
+		$id = $i;
+
+		$list3 .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
+	}
 	
 ?>
 
@@ -108,7 +140,7 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 		<div id="wrap" class="container">
 			<div id="header"></div>
 			
-			<div class="container" style="width: 70%">
+			<div class="container mini-wrap">
 			<form method="POST" action="contents_list.php">
 				
 				<!-- カテゴリー選択 -->
@@ -129,8 +161,9 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 							<thead>
 								<tr>
 									<th class="col-7">タイトル</th>
+									<th>作成者</th>
 									<th>処理状況</th>
-									<th colspan="2">更新ログ</th>
+									<th colspan="3">更新ログ</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -147,8 +180,9 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 							<thead>
 								<tr>
 									<th class="col-7">タイトル</th>
+									<th>作成者</th>
 									<th>処理状況</th>
-									<th colspan="2">更新ログ</th>
+									<th colspan="3">更新ログ</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -165,8 +199,9 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 							<thead>
 								<tr>
 									<th class="col-7">タイトル</th>
+									<th>作成者</th>
 									<th>処理状況</th>
-									<th colspan="2">更新ログ</th>
+									<th colspan="3">更新ログ</th>
 								</tr>
 							</thead>
 							<tbody>

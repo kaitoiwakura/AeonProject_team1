@@ -8,6 +8,10 @@ body {
 	padding-top: 5em;
 }
 
+.mini-wrap {
+	width: 80%;
+}
+
 .navbar {
 	width: 80%;
 }
