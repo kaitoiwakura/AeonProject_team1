@@ -22,8 +22,8 @@
     if($_POST["password"] = $_POST["password2"]){
       //入力したもの格納
       $name = $_POST['name'];
-      $mail = $_POST['mail'];
       $password = $_POST['password'];
+      $mail = $_POST['mail'];
       $authority = $_POST['authority'];
 
       //エラー処理
@@ -34,7 +34,7 @@
 
         $sql ="INSERT INTO
         users(name, password, mail, authority)
-        VALUES ('$name','$mail','$password','$authority');";
+        VALUES ('$name','$password','$mail','$authority');";
 
         //print $sql;
 
