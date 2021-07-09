@@ -1,5 +1,6 @@
 <?php
-	require 'connect.php';
+	require "../php/logincheck.php";
+	require '../php/connect.php';
 
 	$list = "";
 
@@ -31,11 +32,11 @@
 		<meta name="robots" content="none,noindex,nofollow">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="stylesheet" href="./css/bootstrap.min.css">
-		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 		
-		<script src="./js/jquery-3.4.1.min.js"></script>
-		<script src="./js/script.js"></script>
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script src="../js/script.js"></script>
 
 		<title>アカウント管理</title>
 	</head>
@@ -45,7 +46,7 @@
 			<div id="header"></div>
 
 			<div class="container mini-wrap">
-				<form id="changeAuthority" name="changeAuthority" method="post" action="authority_change.php">
+				<form id="changeAuthority" name="changeAuthority" method="post" action="../php/authority_change.php">
 					<div class="row">
 						<table class="table table-hover">
 							<tbody>
@@ -63,7 +64,7 @@
 				</form>
 
 				<div class="row mx-auto" style="width: fit-content;">
-					<a href="./account_create.html" style="font-size: 0.9rem;">新しいアカウントを作成する</a>
+					<a href="./account_create.php" style="font-size: 0.9rem;">新しいアカウントを作成する</a>
 				</div>
 			</div>
 		</div>
@@ -83,7 +84,7 @@
 		</div>
 	</div>
 
-		<script src="./js/bootstrap.bundle.min.js"></script>
+		<script src="../js/bootstrap.bundle.min.js"></script>
 
 		<script type="text/javascript">
 			//権限情報をセレクトタグに設定

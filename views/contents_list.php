@@ -1,4 +1,6 @@
 <?php
+require "../php/logincheck.php";
+
 /* 
 // データベース接続
 require('connect.php');
@@ -127,11 +129,11 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 		<meta name="robots" content="none,noindex,nofollow">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="stylesheet" href="./css/bootstrap.min.css">
-		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 		
-		<script src="./js/jquery-3.4.1.min.js"></script>
-		<script src="./js/script.js"></script>
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script src="../js/script.js"></script>
 
 		<title>トップページ</title>
 	</head>
@@ -214,6 +216,6 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 		</div>
 
 		</div>
-		<script src="./js/bootstrap.bundle.min.js"></script>
+		<script src="../js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>

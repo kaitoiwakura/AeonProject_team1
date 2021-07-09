@@ -6,7 +6,7 @@
 		/**
 		 * 後に画像を変更する処理を加える際に$_SESSION['contentId']にcontentidを入れるのを忘れない
 		 */
-		header("Location:index.html");
+		header("Location: ../views/index.php");
 	}
 ?>
 <!DOCTYPE html>
@@ -16,11 +16,11 @@
 			<meta name="robots" content="none,noindex,nofollow">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 
-			<link rel="stylesheet" href="./css/bootstrap.min.css">
-			<link rel="stylesheet" href="./css/style.css">
+			<link rel="stylesheet" href="../css/bootstrap.min.css">
+			<link rel="stylesheet" href="../css/style.css">
 			
-			<script src="./js/jquery-3.4.1.min.js"></script>
-			<script src="./js/script.js"></script>
+			<script src="../js/jquery-3.4.1.min.js"></script>
+			<script src="../js/script.js"></script>
 
 			<title>画像アップロード</title>
 		</head>
@@ -33,7 +33,7 @@
 			<div class="container mini-wrap">
 				<div class="row align-items-center align-self-center">
 					<!-- php側で$_FILES['input type=fileのname']でデータを取得する -->
-					<form action="uploadimage.php" id="imageform" method="POST" enctype="multipart/form-data">
+					<form action=../php/uploadimage.php" id="imageform" method="POST" enctype="multipart/form-data">
 						<!-- <input type="file" name="upimage" accept="image/*">
 						<input type="submit" value="画像UPLOAD"> -->
 						<div class="input-group">

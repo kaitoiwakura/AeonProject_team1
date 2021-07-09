@@ -29,11 +29,11 @@
 		<meta name="robots" content="none,noindex,nofollow">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="stylesheet" href="./css/bootstrap.min.css">
-		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 		
-		<script src="./js/jquery-3.4.1.min.js"></script>
-		<script src="./js/script.js"></script>
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script src="../js/script.js"></script>
 
 		<title>ユーザー権限変更</title>
 	</head>
@@ -52,10 +52,10 @@
 
 				<div class="row mx-auto text-center" style="width: fit-content;">
 					<p>ユーザーの権限を更新しました。</p>
-					<p><a href="./users_list.php" style="font-size: 0.9rem;">ユーザー一覧に戻る</a></p>
+					<p><a href="../views/users_list.php" style="font-size: 0.9rem;">ユーザー一覧に戻る</a></p>
 				</div>
 			</div>
 		</div>
-		<script src="./js/bootstrap.bundle.min.js"></script>
+		<script src="../js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>

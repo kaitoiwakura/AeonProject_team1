@@ -1,13 +1,15 @@
+<?php require "../php/logincheck.php"; ?>
+
 <!DOCTYPE html>
   <html lang="ja">
     <head>
       <meta charset="utf-8">
       <meta name="robots" content="none,noindex,nofollow">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="./css/bootstrap.min.css">
-      <link rel="stylesheet" href="./css/style.css">
-      <script src="./js/jquery-3.4.1.min.js"></script>
-      <script src="./js/script.js"></script>
+      <link rel="stylesheet" href="../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../css/style.css">
+      <script src="../js/jquery-3.4.1.min.js"></script>
+      <script src="../js/script.js"></script>
       <title>アカウント追加</title>
     </head>
 
@@ -17,7 +19,7 @@
           <div class="row">
             <h1 class="text-center">アカウント追加</h1>
           </div>
-          <form name="singUp" method="POST" action="account_create.php">
+          <form name="singUp" method="POST" action="../php/account_create.php">
             <div class="row mb-3">
               <label for="iUser" class="col-3 col-form-label">ユーザー名</label>
               <div class="col-8">

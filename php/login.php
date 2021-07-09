@@ -13,14 +13,21 @@
 	$stmt->bindvalue(':mail', $mail, PDO::PARAM_STR);
 	$stmt->execute();	//sql実行
 	$user = $stmt->fetch();	//ユーザーデータを配列化
-	if(password_verify($_POST['password'], $user['password'])) {
+
+	var_dump($password);
+	var_dump(password_hash($user['password'],PASSWORD_DEFAULT));
+
+
+	if(password_verify($password, $user['password'])) {
 		$_SESSION['id'] = (int)$user['id'];
 		$_SESSION['name'] = $user['name'];
 		$_SESSION['mail'] = $user['mail'];
 		$_SESSION['authority'] = (int) $user['authority'];
-		header("Location:index.html");
+		header("Location: ../views/index.php");
+		// print "ok";
 	} else {
-		$url = "Location:login.html";
+		$url = "Location: ../views/login.html";
 		header($url);
+		// print "false";
 	}
 ?>
