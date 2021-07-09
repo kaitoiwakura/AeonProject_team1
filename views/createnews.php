@@ -1,3 +1,5 @@
+<?php require "../php/logincheck.php"; ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
@@ -5,11 +7,11 @@
 		<meta name="robots" content="none,noindex,nofollow">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="stylesheet" href="./css/bootstrap.min.css">
-		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 		
-		<script src="./js/jquery-3.4.1.min.js"></script>
-		<script src="./js/script.js"></script>
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script src="../js/script.js"></script>
 
 		<title>コンテンツ作成</title>
 	</head>
@@ -20,7 +22,7 @@
 			
 			<div class="container mini-wrap">
 				<!-- ニュース作成用フォームのひな形 name属性だけは指定されてるのを使って -->
-				<form action="createnews.php" id="newsform" method="POST" enctype="multipart/form-data">
+				<form action="../php/createnews.php" id="newsform" method="POST" enctype="multipart/form-data">
 					<div class="mb-3">
 						<label for="title" class="form-label">タイトル</label>
 						<input type="text" class="form-control" id="iTitle" name="title">
@@ -51,12 +53,12 @@
 			</div>
 		</div>
 			
-		<script src="./js/bootstrap.bundle.min.js"></script>
+		<script src="../js/bootstrap.bundle.min.js"></script>
 		<script type="text/javascript">
 			$(function(){	//セレクタの内容をDBから取得して表示
 				$.ajax({
 					tpe: "POST",
-					url: "loadcategory.php",
+					url: "../php/loadcategory.php",
 					cache: false
 				}).done(function(data){
 					let result =JSON.parse(data);

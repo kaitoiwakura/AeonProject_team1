@@ -32,7 +32,7 @@
 		//画像保存用にcontentidをセッションに保存して渡す
 		session_start();
 		$_SESSION['contentId'] = $pdo->lastInsertId();
-		header("Location:imageform.php");
+		header("Location: ../views/imageform.php");
 		
 	} catch(PDOException $e) {
 		header('Content-Type: text/html; charset=UTF-8');

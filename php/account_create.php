@@ -23,7 +23,7 @@
       //入力したもの格納
       $name = $_POST['name'];
       $mail = $_POST['mail'];
-      $password = $_POST['password'];
+      $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
       $authority = $_POST['authority'];
 
       //エラー処理
@@ -34,7 +34,7 @@
 
         $sql ="INSERT INTO
         users(name, password, mail, authority)
-        VALUES ('$name','$mail','$password','$authority');";
+        VALUES ('$name','$password','$mail','$authority');";
 
         //print $sql;
 
@@ -42,7 +42,7 @@
 
         $stmt->execute();
 
-        header("Location:index.html");
+        header("Location: ../views/index.php");
         $signUpMessage = '登録が完了しました';
 
       }catch(PDOException $e){
@@ -60,11 +60,11 @@
 		<meta name="robots" content="none,noindex,nofollow">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="stylesheet" href="./css/bootstrap.min.css">
-		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 
-		<script src="./js/jquery-3.4.1.min.js"></script>
-		<script src="./js/script.js"></script>
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script src="../js/script.js"></script>
 
     <title></title>
 	</head>
@@ -83,6 +83,6 @@
 				</p>
 			</div>
 		</div>
-		<script src="./js/bootstrap.bundle.min.js"></script>
+		<script src="../js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>
