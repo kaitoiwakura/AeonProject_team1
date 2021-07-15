@@ -1,124 +1,100 @@
 <?php
-require "../php/logincheck.php";
+	// データベース接続
+	require('connect.php');
+	$con = new connect();
+	$pdo = $con->connectdb();
+	//$pdo = new PDO("mysql:dbname=AEON;host=localhost;charset=utf8", "root", "");
 
-/* 
-// データベース接続
-require('connect.php');
-$con = new connect();
-$pdo = $con->connectdb();
-//$pdo = new PDO("mysql:dbname=AEON;host=localhost;charset=utf8", "root", "");
+	// SQL文
+	$sql="SELECT contents_category,title,logs.updater_id,contents.process_status,contents.updated_at,users.name,process_status.name AS process_status_name from contents inner join logs on contents.updated_at = logs.updated_at inner join users on logs.updater_id = users.id inner join process_status on contents.process_status = process_status.id;";
+	//PDOに渡す
+	$stmt = $pdo->prepare($sql);
+	//実行
+	$stmt -> execute();
 
-// SQL文
-$sql="SELECT title,process_status,updated_at from contents;";
-//PDOに渡す
-$stmt = $pdo->prepare($sql);
-//実行
-$stmt -> execute();
+	function console_log( $data ){
+		echo '<script>';
+		echo 'console.log('. json_encode( $data ) .')';
+		echo '</script>';
+	}
 
-function console_log( $data ){
-	echo '<script>';
-	echo 'console.log('. json_encode( $data ) .')';
-	echo '</script>';
-  }
-
-  //変数(仮)
+	//変数(仮)
 	$id = 0;
-	 $title = "";
-	 $status = "";
-	 $log = "";
+	$newslist="";
+	$hallist="";
+	$aeonlist="";
 
+	//テスト表示
 	print_r($_POST);
 
-// fetchで一文ずつ表示を繰り返し
-while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
-	//行番号用変数を用意
-	$i=1;
-		//連想配列すべてを読み出すまでループ<td>これなに'.$val.'('.$key.')</td>
-		foreach($row as $key => $val){
-			//番号とテーブル名とキーを表示
-			print '<tr><td>行番号'.$i.'</td>
-			<td>タイトル'.$val.'('.$title.')</td>
-			<td>処理状態'.$val.'('.$status.')</td>
-			<td>更新ログ'.$val.'('.$log.')</td></tr><br/>';
-			$i+=1;
+	//コンテンツテーブルの全てを取り出し
+	$row = $stmt->fetchAll();
+	//print_r($row);
+	foreach($row as $val) {
+		//ニュースリスト追加
+		if($val['contents_category'] == 1){
+			$newslist .= "<tr>
+			<td>".$val['title']."</td>
+			<td>".$val['name']."</td>
+			<td>".$val['process_status_name']."</td>
+			<td>".$val['updated_at']."</td>
+			<td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>
+			"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td>
+			</tr>";
+		}//halリスト追加
+		elseif($val['contents_category'] == 2){
+			$hallist .= "<tr>
+			<td>".$val['title']."</td>
+			<td>".$val['name']."</td>
+			<td>".$val['process_status_name']."</td>
+			<td>".$val['updated_at']."</td>
+			<td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>
+			"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td>
+			</tr>"; 
+		}//イオン商品リスト追加
+		else{
+			$aeonlist .= "<tr>
+			<td>".$val['title']."</td>
+			<td>".$val['name']."</td>
+			<td>".$val['process_status_name']."</td>
+			<td>".$val['updated_at']."</td>
+			<td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>
+			"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td>
+			</tr>";
 		}
-		$i+=1;
-	echo("<br/>");
-	  
-	  console_log( array($row) );
-}
-	//お知らせ一覧(仮)
-	$list1 = "";
-	for ($i = 1; $i < 5; $i++) {
-		$id = $i;
-
-		$list1 .= "<tr><td>".$row[$id]["title"]."</td>
-		<td>".$row["process_status"]."</td>
-		<td>".$row["updated_at"]."</td>
-		<td>
-			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
-		</td>
-		</tr>";
 	}
-
-	//HAL学生制作一覧(仮)
-	$list2 = "";
-	for ($i = 6; $i < 9; $i++) {
-		$id = $i;
-		$list2 .= "<tr><td>".$row["title"]."</td>
-		<td>".$row["process_status"]."</td>
-		<td>".$row["updated_at"]."</td>
-		<td>
-			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
-		</td></tr>";
-	}
-
-	//企業商品紹介一覧(仮)
-	$list3 = "";
-
-	for ($i = 10; $i < 12; $i++) {
-		$id = $i;
-
-		$list3 .= "<tr><td>".$row["title"]."</td>
-		<td>".$row["process_status"]."</td>
-		<td>".$row["updated_at"]."</td>
-		<td>
-			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
-		</td></tr>";
-	} 
-*/
 
 	//変数(仮)
 	$id = 0;
 	$title = "タイトル";
-	$creator = "作成者";
+	$val['updater_id'] = "作成者";
 	$status = "処理状況";
 	$log = "更新ログ";
 
-	//お知らせ一覧(仮)
-	$list1 = "";
-	for ($i = 1; $i < 5; $i++) {
-		$id = $i;
+	// //お知らせ一覧(仮)
+	// $newslist = "";
+	// for ($i = 1; $i < 5; $i++) {
+	// 	$id = $i;
 
-		$list1 .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
-	}
+		//$newslist .= "<tr><td>".$title."</td><td>".$val['updater_id']."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
+	// }
 
-	//HAL学生制作一覧(仮)
-	$list2 = "";
-	for ($i = 6; $i < 9; $i++) {
-		$id = $i;
+	// //HAL学生制作一覧(仮)
+	// $hallist = "";
+	// for ($i = 6; $i < 9; $i++) {
+	// 	$id = $i;
 
-		$list2 .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
-	}
+	// 	$hallist .= "<tr><td>".$title."</td><td>".$val['updater_id']."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
+	// }
 
-	//企業商品紹介一覧(仮)
-	$list3 = "";
+	// //企業商品紹介一覧(仮)
+	// $aeonlist = "";
 
-	for ($i = 10; $i < 12; $i++) {
-		$id = $i;
+	// for ($i = 10; $i < 12; $i++) {
+	// 	$id = $i;
 
-		$list3 .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
-	}
+	// 	$aeonlist .= "<tr><td>".$title."</td><td>".$val['updater_id']."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
+	// }
 	
 ?>
 
@@ -129,11 +105,11 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 		<meta name="robots" content="none,noindex,nofollow">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="stylesheet" href="../css/bootstrap.min.css">
-		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="./css/bootstrap.min.css">
+		<link rel="stylesheet" href="./css/style.css">
 		
-		<script src="../js/jquery-3.4.1.min.js"></script>
-		<script src="../js/script.js"></script>
+		<script src="./js/jquery-3.4.1.min.js"></script>
+		<script src="./js/script.js"></script>
 
 		<title>トップページ</title>
 	</head>
@@ -169,7 +145,7 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 								</tr>
 							</thead>
 							<tbody>
-								<?php print $list1; ?>
+								<?php print $newslist; ?>	
 							</tbody>
 						</table>
 					</div>
@@ -188,7 +164,7 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 								</tr>
 							</thead>
 							<tbody>
-								<?php print $list2; ?>
+								<?php print $hallist; ?>
 							</tbody>
 						</table>
 					</div>
@@ -207,7 +183,7 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 								</tr>
 							</thead>
 							<tbody>
-								<?php print $list3; ?>
+								<?php print $aeonlist; ?>
 							</tbody>
 						</table>
 					</div>
@@ -216,6 +192,6 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 		</div>
 
 		</div>
-		<script src="../js/bootstrap.bundle.min.js"></script>
+		<script src="./js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>
