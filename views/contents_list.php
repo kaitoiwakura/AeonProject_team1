@@ -1,102 +1,64 @@
 <?php
-	// データベース接続
-	require('../php/connect.php');
+	require "../php/logincheck.php";
+	require '../php/connect.php';
+
+	//DBアクセス
 	$con = new connect();
 	$pdo = $con->connectdb();
-	//$pdo = new PDO("mysql:dbname=AEON;host=localhost;charset=utf8", "root", "");
-	// SQL文
-	$sql="SELECT contents_category,title,logs.updater_id,contents.process_status,contents.updated_at,users.name,process_status.name AS process_status_name from contents inner join logs on contents.updated_at = logs.updated_at inner join users on logs.updater_id = users.id inner join process_status on contents.process_status = process_status.id;";
-	//PDOに渡す
-	$stmt = $pdo->prepare($sql);
-	//実行
-	$stmt -> execute();
-	function console_log( $data ){
-		echo '<script>';
-		echo 'console.log('. json_encode( $data ) .')';
-		echo '</script>';
-	}
-	//変数(仮)
-	$id = 0;
-	$newslist="";
-	$hallist="";
-	$aeonlist="";
-	//テスト表示
-	print_r($_POST);
-	//コンテンツテーブルの全てを取り出し
-	$row = $stmt->fetchAll();
-	//print_r($row);
-	foreach($row as $val) {
-		//ニュースリスト追加
-		if($val['contents_category'] == 1){
-			$newslist .= "<tr>
-			<td>".$val['title']."</td>
-			<td>".$val['name']."</td>
-			<td>".$val['process_status_name']."</td>
-			<td>".$val['updated_at']."</td>
-			<td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>
-			"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td>
-			</tr>";
-		}//halリスト追加
-		elseif($val['contents_category'] == 2){
-			$hallist .= "<tr>
-			<td>".$val['title']."</td>
-			<td>".$val['name']."</td>
-			<td>".$val['process_status_name']."</td>
-			<td>".$val['updated_at']."</td>
-			<td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>
-			"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td>
-			</tr>";
-		}//イオン商品リスト追加
-		else{
-			$aeonlist .= "<tr>
-			<td>".$val['title']."</td>
-			<td>".$val['name']."</td>
-			<td>".$val['process_status_name']."</td>
-			<td>".$val['updated_at']."</td>
-			<td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>
-			"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td>
-			</tr>";
+
+	$stmt = $pdo->prepare("SELECT C.id, contents_category, title, U.name as creator, P.name as status, released_at, C.deleted_at FROM contents C JOIN users U ON C.applicant_id = U.id JOIN process_status P ON P.id = C.process_status ORDER BY C.id");
+	$stmt->execute();
+
+	$list1 = "";
+	$list2 = "";
+	$list3 = "";
+	if($stmt->columnCount() === 0) {
+		$list1 = $list2 = $list3 = "データがありません";
+	} else {
+		$contents = $stmt->fetchall();
+		foreach($contents as $content) {
+			if($content['contents_category'] == 1) { //お知らせ一覧
+				$list1 .= "<tr><td>".$content['title']."</td>";
+				$list1 .= "<td>".$content['creator']."</td>";
+				$list1 .= "<td>".$content['status']."</td>";
+				$list1 .= "<td>".$content['released_at']."</td>";
+				$list1 .= "<td>".$content['deleted_at']."</td>";
+				$list1 .= "<td><button type='submit' name='".$content['id']."' class='btn btn-warning btn-sm'>詳細</button></td></tr>";
+			} elseif ($content['contents_category'] == 2) { //HAL学生制作一覧
+				$list2 .= "<tr><td>".$content['title']."</td>";
+				$list2 .= "<td>".$content['creator']."</td>";
+				$list2 .= "<td>".$content['status']."</td>";
+				$list2 .= "<td>".$content['released_at']."</td>";
+				$list2 .= "<td>".$content['deleted_at']."</td>";
+				$list2 .= "<td><button type='submit' name='".$content['id']."' class='btn btn-warning btn-sm'>詳細</button></td></tr>";
+			} else { //企業商品紹介一覧
+				$list3 .= "<tr><td>".$content['title']."</td>";
+				$list3 .= "<td>".$content['creator']."</td>";
+				$list3 .= "<td>".$content['status']."</td>";
+				$list3 .= "<td>".$content['released_at']."</td>";
+				$list3 .= "<td>".$content['deleted_at']."</td>";
+				$list3 .= "<td><button type='submit' name='".$content['id']."' class='btn btn-warning btn-sm'>詳細</button></td></tr>";
+			}
 		}
 	}
-	//変数(仮)
-	$id = 0;
-	$title = "タイトル";
-	$val['updater_id'] = "作成者";
-	$status = "処理状況";
-	$log = "更新ログ";
-	// //お知らせ一覧(仮)
-	// $newslist = "";
-	// for ($i = 1; $i < 5; $i++) {
-	// 	$id = $i;
-		//$newslist .= "<tr><td>".$title."</td><td>".$val['updater_id']."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
-	// }
-	// //HAL学生制作一覧(仮)
-	// $hallist = "";
-	// for ($i = 6; $i < 9; $i++) {
-	// 	$id = $i;
-	// 	$hallist .= "<tr><td>".$title."</td><td>".$val['updater_id']."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
-	// }
-	// //企業商品紹介一覧(仮)
-	// $aeonlist = "";
-	// for ($i = 10; $i < 12; $i++) {
-	// 	$id = $i;
-	// 	$aeonlist .= "<tr><td>".$title."</td><td>".$val['updater_id']."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
-	// }
-	
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
 		<meta charset="utf-8">
 		<meta name="robots" content="none,noindex,nofollow">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="./css/bootstrap.min.css">
-		<link rel="stylesheet" href="./css/style.css">
+
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 		
-		<script src="./js/jquery-3.4.1.min.js"></script>
-		<script src="./js/script.js"></script>
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script src="../js/script.js"></script>
+
 		<title>トップページ</title>
 	</head>
+
 	<body>
 		<div id="wrap" class="container">
 			<div id="header"></div>
@@ -114,63 +76,70 @@
 						</select>
 					</div>
 				</div>
+
 				<!-- お知らせ一覧 -->
 				<div id="news">
 					<div class="row">
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th class="col-7">タイトル</th>
+									<th class="col-5">タイトル</th>
 									<th>作成者</th>
 									<th>処理状況</th>
-									<th colspan="3">更新ログ</th>
+									<th>公開日</th>
+									<th colspan="2">終了日</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php print $newslist; ?>	
+								<?php print $list1; ?>
 							</tbody>
 						</table>
 					</div>
 				</div>
+
 				<!-- HAL学生制作一覧 -->
 				<div id="hal">
 					<div class="row">
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th class="col-7">タイトル</th>
+									<th class="col-5">タイトル</th>
 									<th>作成者</th>
 									<th>処理状況</th>
-									<th colspan="3">更新ログ</th>
+									<th>公開日</th>
+									<th colspan="2">終了日</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php print $hallist; ?>
+								<?php print $list2; ?>
 							</tbody>
 						</table>
 					</div>
 				</div>
+
 				<!-- 企業商品紹介一覧 -->
 				<div id="aeon">
 					<div class="row">
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th class="col-7">タイトル</th>
+									<th class="col-5">タイトル</th>
 									<th>作成者</th>
 									<th>処理状況</th>
-									<th colspan="3">更新ログ</th>
+									<th>公開日</th>
+									<th colspan="2">終了日</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php print $aeonlist; ?>
+								<?php print $list3; ?>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</form>
 		</div>
+
 		</div>
-		<script src="./js/bootstrap.bundle.min.js"></script>
+		<script src="../js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>
