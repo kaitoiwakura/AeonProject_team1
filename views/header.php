@@ -19,7 +19,7 @@
 						</li><?php endif; ?>
 					<li><a class="dropdown-item" href="./createnews.php">コンテンツ追加</a></li>
 					<li><a class="dropdown-item" href="./contents_list.php">コンテンツ一覧</a></li>
-					<li><a class="dropdown-item" href="#">更新ログ</a></li>
+					<li><a class="dropdown-item" href="./logs.php">更新ログ</a></li>
 					<li><a class="dropdown-item" href="./change_password.php" class="list-group-item list-group-item-action">パスワード変更</a></li>
 				</ul>
 			</li>

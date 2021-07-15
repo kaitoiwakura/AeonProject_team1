@@ -27,7 +27,7 @@
 					<?php endif; ?>
 					<a href="./createnews.php" class="list-group-item list-group-item-action">コンテンツ追加</a>
 					<a href="./contents_list.php" class="list-group-item list-group-item-action">コンテンツ一覧</a>
-					<a href="#" class="list-group-item list-group-item-action">更新ログ</a>
+					<a href="./logs.php" class="list-group-item list-group-item-action">更新ログ</a>
 					<a href="./change_password.php" class="list-group-item list-group-item-action">パスワード変更</a>
 				</div>
 			</div>

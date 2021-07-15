@@ -9,7 +9,7 @@ body {
 }
 
 .mini-wrap {
-	width: 80%;
+	width: 90%;
 }
 
 .navbar {
@@ -32,3 +32,13 @@ h1 {
 #hal, #aeon {
 	display: none;
 }
+
+.hide{
+  display: none;
+}
+
+/* #keyword {
+	width: 500px;
+	margin-bottom: 2em;
+	
+} */
