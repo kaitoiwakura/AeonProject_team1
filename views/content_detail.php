@@ -103,7 +103,7 @@
 						<p>公開開始日：<?php echo $content['released_at']; ?></p>
 						<p>公開終了日：<?php echo $content['deleted_at']; ?></p>
 						<p>処理状況：<?php echo $content['status']; ?></p>
-						<p>Youtube URL：<a href="<?php echo $content['video_url']; ?>"><?php echo $content['video_url']; ?></a></p>
+						<p>Youtube URL：<a href="<?php echo $content['video_url']; ?>" target="_blank"><?php echo $content['video_url']; ?></a></p>
 					</div>
 
 				<?php } else { ?>
@@ -204,8 +204,8 @@
 						msg = "<div id='msg'>コンテンツを非表示にします。よろしいですか？</div>";
 					}
 
-					$("#process").attr("action", act); //set action url
-					$("#msg").replaceWith(msg);
+					$("#process").attr("action", act); //formのactionを変える
+					$("#msg").replaceWith(msg); //modalの文章を変える
 				});
 			});
 		</script>
