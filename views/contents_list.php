@@ -23,21 +23,21 @@
 				$list1 .= "<td>".$content['status']."</td>";
 				$list1 .= "<td>".$content['released_at']."</td>";
 				$list1 .= "<td>".$content['deleted_at']."</td>";
-				$list1 .= "<td><button type='submit' name='".$content['id']."' class='btn btn-warning btn-sm'>詳細</button></td></tr>";
+				$list1 .= "<td><button type='submit' name='news' value='".$content['id']."' class='btn btn-secondary btn-sm'>詳細</button></td></tr>";
 			} elseif ($content['contents_category'] == 2) { //HAL学生制作一覧
 				$list2 .= "<tr><td>".$content['title']."</td>";
 				$list2 .= "<td>".$content['creator']."</td>";
 				$list2 .= "<td>".$content['status']."</td>";
 				$list2 .= "<td>".$content['released_at']."</td>";
 				$list2 .= "<td>".$content['deleted_at']."</td>";
-				$list2 .= "<td><button type='submit' name='".$content['id']."' class='btn btn-warning btn-sm'>詳細</button></td></tr>";
+				$list2 .= "<td><button type='submit' name='detail' value='".$content['id']."' class='btn btn-secondary btn-sm'>詳細</button></td></tr>";
 			} else { //企業商品紹介一覧
 				$list3 .= "<tr><td>".$content['title']."</td>";
 				$list3 .= "<td>".$content['creator']."</td>";
 				$list3 .= "<td>".$content['status']."</td>";
 				$list3 .= "<td>".$content['released_at']."</td>";
 				$list3 .= "<td>".$content['deleted_at']."</td>";
-				$list3 .= "<td><button type='submit' name='".$content['id']."' class='btn btn-warning btn-sm'>詳細</button></td></tr>";
+				$list3 .= "<td><button type='submit' name='detail' value='".$content['id']."' class='btn btn-secondary btn-sm'>詳細</button></td></tr>";
 			}
 		}
 	}
@@ -64,7 +64,7 @@
 			<div id="header"></div>
 			
 			<div class="container mini-wrap">
-			<form method="POST" action="contents_list.php">
+			<form method="POST" action="./content_detail.php">
 				
 				<!-- カテゴリー選択 -->
 				<div class="row justify-content-end">
