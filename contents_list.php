@@ -6,7 +6,7 @@
 	//$pdo = new PDO("mysql:dbname=AEON;host=localhost;charset=utf8", "root", "");
 
 	// SQL文
-	$sql="SELECT contents_category,title,process_status,updated_at from contents;";
+	$sql="SELECT contents_category,title,logs.updater_id,contents.process_status,contents.updated_at,users.name,process_status.name AS process_status_name from contents inner join logs on contents.updated_at = logs.updated_at inner join users on logs.updater_id = users.id inner join process_status on contents.process_status = process_status.id;";
 	//PDOに渡す
 	$stmt = $pdo->prepare($sql);
 	//実行
@@ -25,7 +25,7 @@
 	$aeonlist="";
 
 	//テスト表示
-	//print_r($_POST);
+	print_r($_POST);
 
 	//コンテンツテーブルの全てを取り出し
 	$row = $stmt->fetchAll();
@@ -35,8 +35,8 @@
 		if($val['contents_category'] == 1){
 			$newslist .= "<tr>
 			<td>".$val['title']."</td>
-			<td>".$creator."</td>
-			<td>".$val['process_status']."</td>
+			<td>".$val['name']."</td>
+			<td>".$val['process_status_name']."</td>
 			<td>".$val['updated_at']."</td>
 			<td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>
 			"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td>
@@ -45,8 +45,8 @@
 		elseif($val['contents_category'] == 2){
 			$hallist .= "<tr>
 			<td>".$val['title']."</td>
-			<td>".$creator."</td>
-			<td>".$val['process_status']."</td>
+			<td>".$val['name']."</td>
+			<td>".$val['process_status_name']."</td>
 			<td>".$val['updated_at']."</td>
 			<td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>
 			"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td>
@@ -55,8 +55,8 @@
 		else{
 			$aeonlist .= "<tr>
 			<td>".$val['title']."</td>
-			<td>".$creator."</td>
-			<td>".$val['process_status']."</td>
+			<td>".$val['name']."</td>
+			<td>".$val['process_status_name']."</td>
 			<td>".$val['updated_at']."</td>
 			<td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>
 			"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td>
@@ -67,7 +67,7 @@
 	//変数(仮)
 	$id = 0;
 	$title = "タイトル";
-	$creator = "作成者";
+	$val['updater_id'] = "作成者";
 	$status = "処理状況";
 	$log = "更新ログ";
 
@@ -76,7 +76,7 @@
 	// for ($i = 1; $i < 5; $i++) {
 	// 	$id = $i;
 
-		//$newslist .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
+		//$newslist .= "<tr><td>".$title."</td><td>".$val['updater_id']."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
 	// }
 
 	// //HAL学生制作一覧(仮)
@@ -84,7 +84,7 @@
 	// for ($i = 6; $i < 9; $i++) {
 	// 	$id = $i;
 
-	// 	$hallist .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
+	// 	$hallist .= "<tr><td>".$title."</td><td>".$val['updater_id']."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
 	// }
 
 	// //企業商品紹介一覧(仮)
@@ -93,7 +93,7 @@
 	// for ($i = 10; $i < 12; $i++) {
 	// 	$id = $i;
 
-	// 	$aeonlist .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
+	// 	$aeonlist .= "<tr><td>".$title."</td><td>".$val['updater_id']."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
 	// }
 	
 ?>
