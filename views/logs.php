@@ -17,7 +17,7 @@
 	} else {
 		$logs = $stmt->fetchall();
 		foreach($logs as $log) {
-			$logs_list[] = $log;	//jsにデータを渡すための変数
+			//$logs_list[] = $log;	//jsにデータを渡すための変数
 			$list .= "<tr class='log-row'><td>".$log['contents_title']."</td>";
 			$list .= "<td>".$log['process_status']."</td>";
 			$list .= "<td>".$log['log_comment']."</td>";
@@ -48,6 +48,7 @@
 			<div id="header"></div>
 
 			<div class="container mini-wrap">
+
 				<div class="row justify-content-end">
 					<div class="col-5 mb-4">
 						<input class="form-control" type="text" id="keyword" placeholder="検索">
@@ -72,21 +73,11 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
 		<script src="../js/bootstrap.bundle.min.js"></script>
 
 		<script type="text/javascript">
-			// //権限情報をセレクトタグに設定
-			// let logs_list = <?php echo json_encode($logs_list); ?>;
-
-			// let selector;
-			// users_list.forEach(function(item, i) {
-			// 		selector = document.getElementsByName(item["id"]);
-			// 		$(selector).val(item["authority"]);
-			// });
-
-			// const yougo_area = document.getElementById('sample_area');
+			const yougo_area = document.getElementById('sample_area');
 			const yougo_parts = document.getElementsByClassName('log-row');
 			const input = document.getElementById('keyword');
 
