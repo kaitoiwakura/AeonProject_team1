@@ -1,5 +1,6 @@
 <?php
   require 'connect.php';
+	require "../php/logincheck.php";
   /* session_start();
   session_regenerate_id();	//セッションID更新 */
 
@@ -19,7 +20,7 @@
 
   //新規登録ボタン押した時
   //IDはPOSTされない
-    if($_POST["password"] = $_POST["password2"]){
+    if($_POST["password"] == $_POST["password2"]){
       //入力したもの格納
       $name = $_POST['name'];
       $mail = $_POST['mail'];
@@ -45,12 +46,13 @@
         header("Location: ../views/index.php");
         $signUpMessage = '登録が完了しました';
 
-      }catch(PDOException $e){
+      } catch(PDOException $e) {
         //DBエラー
         $errorMessage = 'データベースエラー';
       }
-    }else{
-      $errorMessage = 'パスワードに誤りがあります。';}
+    } else {
+      $errorMessage = 'パスワードに誤りがあります。';
+		}
 ?>
 
 <!DOCTYPE html>
@@ -66,21 +68,23 @@
 		<script src="../js/jquery-3.4.1.min.js"></script>
 		<script src="../js/script.js"></script>
 
-    <title></title>
+    <title>アカウント追加結果</title>
 	</head>
   <body>
 		<div id="wrap" class="container">
-			<div id="header"></div>
+
 			<div class="container mini-wrap">
-				<div style="color: #999999">
-					<?php
-						print $$signUpMessage;
-					?>
+				<div class="row mx-auto text-center" style="width: fit-content;">
+					<p><?php
+						if(isset($signUpMessage)) {
+							print $signUpMessage;
+						} elseif(isset($errorMessage)) {
+							print $errorMessage;
+						}
+					?></p>
+
+				<p><a href="../views/account_create.php" style="font-size: 0.9rem;">戻る</a></p>
 				</div>
-
-				<p class="text-center align-middle mt-4">
-
-				</p>
 			</div>
 		</div>
 		<script src="../js/bootstrap.bundle.min.js"></script>

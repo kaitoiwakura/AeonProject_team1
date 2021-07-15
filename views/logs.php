@@ -48,7 +48,6 @@
 			<div id="header"></div>
 
 			<div class="container mini-wrap">
-
 				<div class="row justify-content-end">
 					<div class="col-5 mb-4">
 						<input class="form-control" type="text" id="keyword" placeholder="検索">
@@ -73,7 +72,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 
 		<script src="../js/bootstrap.bundle.min.js"></script>
@@ -88,7 +86,7 @@
 			// 		$(selector).val(item["authority"]);
 			// });
 
-			const yougo_area = document.getElementById('sample_area');
+			// const yougo_area = document.getElementById('sample_area');
 			const yougo_parts = document.getElementsByClassName('log-row');
 			const input = document.getElementById('keyword');
 

@@ -13,10 +13,12 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle btn btn-outline-secondary" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">メニュー</a>
 				<ul class="dropdown-menu">
-					<?php if ($is_admin): ?><li>
+					<?php if ($is_admin): ?>
+						<li>
 							<a class="dropdown-item" href="./users_list.php">ユーザー管理</a>
 							<hr class="dropdown-divider">
-						</li><?php endif; ?>
+						</li>
+					<?php endif; ?>
 					<li><a class="dropdown-item" href="./createnews.php">コンテンツ追加</a></li>
 					<li><a class="dropdown-item" href="./contents_list.php">コンテンツ一覧</a></li>
 					<li><a class="dropdown-item" href="./logs.php">更新ログ</a></li>
