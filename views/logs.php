@@ -8,7 +8,7 @@
 	$con = new connect();
 	$pdo = $con->connectdb();
 
-	$stmt = $pdo->prepare("SELECT contents_title, process_status, log_comment, name, L.updated_at FROM logs L JOIN users U ON L.updater_id = U.id");
+	$stmt = $pdo->prepare("SELECT contents_title, process_status, log_comment, name, L.updated_at FROM logs L JOIN users U ON L.updater_id = U.id ORDER BY L.updated_at DESC");
 	$stmt->execute();
 
 	$list = "";
