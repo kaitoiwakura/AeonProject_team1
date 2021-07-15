@@ -1,6 +1,6 @@
 <?php
 	// データベース接続
-	require('connect.php');
+	require('../php/connect.php');
 	$con = new connect();
 	$pdo = $con->connectdb();
 	//$pdo = new PDO("mysql:dbname=AEON;host=localhost;charset=utf8", "root", "");
