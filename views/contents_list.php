@@ -1,125 +1,46 @@
 <?php
-require "../php/logincheck.php";
+	require "../php/logincheck.php";
+	require '../php/connect.php';
 
-/* 
-// データベース接続
-require('connect.php');
-$con = new connect();
-$pdo = $con->connectdb();
-//$pdo = new PDO("mysql:dbname=AEON;host=localhost;charset=utf8", "root", "");
+	//DBアクセス
+	$con = new connect();
+	$pdo = $con->connectdb();
 
-// SQL文
-$sql="SELECT title,process_status,updated_at from contents;";
-//PDOに渡す
-$stmt = $pdo->prepare($sql);
-//実行
-$stmt -> execute();
+	$stmt = $pdo->prepare("SELECT C.id, contents_category, title, U.name as creator, P.name as status, released_at, C.deleted_at FROM contents C JOIN users U ON C.applicant_id = U.id JOIN process_status P ON P.id = C.process_status ORDER BY C.id");
+	$stmt->execute();
 
-function console_log( $data ){
-	echo '<script>';
-	echo 'console.log('. json_encode( $data ) .')';
-	echo '</script>';
-  }
-
-  //変数(仮)
-	$id = 0;
-	 $title = "";
-	 $status = "";
-	 $log = "";
-
-	print_r($_POST);
-
-// fetchで一文ずつ表示を繰り返し
-while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
-	//行番号用変数を用意
-	$i=1;
-		//連想配列すべてを読み出すまでループ<td>これなに'.$val.'('.$key.')</td>
-		foreach($row as $key => $val){
-			//番号とテーブル名とキーを表示
-			print '<tr><td>行番号'.$i.'</td>
-			<td>タイトル'.$val.'('.$title.')</td>
-			<td>処理状態'.$val.'('.$status.')</td>
-			<td>更新ログ'.$val.'('.$log.')</td></tr><br/>';
-			$i+=1;
+	$list1 = "";
+	$list2 = "";
+	$list3 = "";
+	if($stmt->columnCount() === 0) {
+		$list1 = $list2 = $list3 = "データがありません";
+	} else {
+		$contents = $stmt->fetchall();
+		foreach($contents as $content) {
+			if($content['contents_category'] == 1) { //お知らせ一覧
+				$list1 .= "<tr><td>".$content['title']."</td>";
+				$list1 .= "<td>".$content['creator']."</td>";
+				$list1 .= "<td>".$content['status']."</td>";
+				$list1 .= "<td>".$content['released_at']."</td>";
+				$list1 .= "<td>".$content['deleted_at']."</td>";
+				$list1 .= "<td><button type='submit' name='news' value='".$content['id']."' class='btn btn-secondary btn-sm'>詳細</button></td></tr>";
+			} elseif ($content['contents_category'] == 2) { //HAL学生制作一覧
+				$list2 .= "<tr><td>".$content['title']."</td>";
+				$list2 .= "<td>".$content['creator']."</td>";
+				$list2 .= "<td>".$content['status']."</td>";
+				$list2 .= "<td>".$content['released_at']."</td>";
+				$list2 .= "<td>".$content['deleted_at']."</td>";
+				$list2 .= "<td><button type='submit' name='detail' value='".$content['id']."' class='btn btn-secondary btn-sm'>詳細</button></td></tr>";
+			} else { //企業商品紹介一覧
+				$list3 .= "<tr><td>".$content['title']."</td>";
+				$list3 .= "<td>".$content['creator']."</td>";
+				$list3 .= "<td>".$content['status']."</td>";
+				$list3 .= "<td>".$content['released_at']."</td>";
+				$list3 .= "<td>".$content['deleted_at']."</td>";
+				$list3 .= "<td><button type='submit' name='detail' value='".$content['id']."' class='btn btn-secondary btn-sm'>詳細</button></td></tr>";
+			}
 		}
-		$i+=1;
-	echo("<br/>");
-	  
-	  console_log( array($row) );
-}
-	//お知らせ一覧(仮)
-	$list1 = "";
-	for ($i = 1; $i < 5; $i++) {
-		$id = $i;
-
-		$list1 .= "<tr><td>".$row[$id]["title"]."</td>
-		<td>".$row["process_status"]."</td>
-		<td>".$row["updated_at"]."</td>
-		<td>
-			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
-		</td>
-		</tr>";
 	}
-
-	//HAL学生制作一覧(仮)
-	$list2 = "";
-	for ($i = 6; $i < 9; $i++) {
-		$id = $i;
-		$list2 .= "<tr><td>".$row["title"]."</td>
-		<td>".$row["process_status"]."</td>
-		<td>".$row["updated_at"]."</td>
-		<td>
-			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
-		</td></tr>";
-	}
-
-	//企業商品紹介一覧(仮)
-	$list3 = "";
-
-	for ($i = 10; $i < 12; $i++) {
-		$id = $i;
-
-		$list3 .= "<tr><td>".$row["title"]."</td>
-		<td>".$row["process_status"]."</td>
-		<td>".$row["updated_at"]."</td>
-		<td>
-			<button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button>
-		</td></tr>";
-	} 
-*/
-
-	//変数(仮)
-	$id = 0;
-	$title = "タイトル";
-	$creator = "作成者";
-	$status = "処理状況";
-	$log = "更新ログ";
-
-	//お知らせ一覧(仮)
-	$list1 = "";
-	for ($i = 1; $i < 5; $i++) {
-		$id = $i;
-
-		$list1 .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
-	}
-
-	//HAL学生制作一覧(仮)
-	$list2 = "";
-	for ($i = 6; $i < 9; $i++) {
-		$id = $i;
-
-		$list2 .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
-	}
-
-	//企業商品紹介一覧(仮)
-	$list3 = "";
-
-	for ($i = 10; $i < 12; $i++) {
-		$id = $i;
-
-		$list3 .= "<tr><td>".$title."</td><td>".$creator."</td><td>".$status."</td><td>".$log."</td><td><button type='submit' name='edit_".$id."' class='btn btn-secondary btn-sm'>編集</button></td>"."<td><button type='submit' name='check_".$id."' class='btn btn-warning btn-sm'>承認</button></td></tr>";
-	}
-	
 ?>
 
 <!DOCTYPE html>
@@ -143,7 +64,7 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 			<div id="header"></div>
 			
 			<div class="container mini-wrap">
-			<form method="POST" action="contents_list.php">
+			<form method="POST" action="./content_detail.php">
 				
 				<!-- カテゴリー選択 -->
 				<div class="row justify-content-end">
@@ -162,10 +83,11 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th class="col-7">タイトル</th>
+									<th class="col-5">タイトル</th>
 									<th>作成者</th>
 									<th>処理状況</th>
-									<th colspan="3">更新ログ</th>
+									<th>公開日</th>
+									<th colspan="2">終了日</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -181,10 +103,11 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th class="col-7">タイトル</th>
+									<th class="col-5">タイトル</th>
 									<th>作成者</th>
 									<th>処理状況</th>
-									<th colspan="3">更新ログ</th>
+									<th>公開日</th>
+									<th colspan="2">終了日</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -200,10 +123,11 @@ while ($row = $stmt -> fetch(PDO::FETCH_ASSOC )) {
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th class="col-7">タイトル</th>
+									<th class="col-5">タイトル</th>
 									<th>作成者</th>
 									<th>処理状況</th>
-									<th colspan="3">更新ログ</th>
+									<th>公開日</th>
+									<th colspan="2">終了日</th>
 								</tr>
 							</thead>
 							<tbody>

@@ -27,7 +27,7 @@
 			</li>
 				
 			<li class="nav-item">
-				<a class="nav-link btn btn-outline-secondary ms-1" href="#">ログアウト</a>
+				<a class="nav-link btn btn-outline-secondary ms-1" href="../php/logout.php">ログアウト</a>
 			</li>    
 		</ul>
   </div>

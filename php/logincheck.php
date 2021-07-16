@@ -5,7 +5,7 @@
 	
 	if (!isset($_SESSION['id']) || !isset($_SESSION['authority'])) {
 		header("Location: ../views/login.html");
-	} elseif ($_SESSION['authority'] == 0) {
+	} else if ($_SESSION['authority'] == 0) {
 		$is_admin = true;
 	}
 ?>
