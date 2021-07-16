@@ -190,7 +190,10 @@
 					var msg = "";
 					
 					//valueによって遷移先と文言を変更
-					if (cur_value == "edit") act = "./content_edit.php"; //編集の場合
+					if (cur_value == "edit") { //編集の場合
+						act = "./content_edit.php";
+						msg = "<div id='msg'>コンテンツを編集します。よろしいですか？</div>";
+					}
 					if (cur_value == "accept") { //承認の場合
 						act = "../php/content_accept.php";
 						msg = "<div id='msg'>コンテンツを承認します。よろしいですか？</div>";
