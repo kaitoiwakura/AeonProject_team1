@@ -41,3 +41,7 @@ h1 {
 img {
 	width: 50%;
 }
+
+#reject-reason {
+	display: none;
+}
