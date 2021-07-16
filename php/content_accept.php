@@ -36,28 +36,30 @@
 	// 	$content = $stmt->fetch();
 	// }
 
-	$_SESSION['content_id'] = $id;
-	$_SESSION['content_cat'] = $content['contents_category'];
-	$_SESSION['content_title'] = $content['title'];
-	$_SESSION['content_text'] = $content['content'];
-	$_SESSION['content_img'] = $content['image_path'];
-	$_SESSION['content_url'] = $content['video_url'];
-	$_SESSION['content_status'] = $content['process_status'];
-	$_SESSION['content_release'] = $content['released_at'];
-    $_SESSION['content_hide'] = $content['deleted_at'];
+	$id = $_SESSION['content_id'];
+	// $_SESSION['content_id'] = $id;
+	// $_SESSION['content_cat'] = $content['contents_category'];
+	// $_SESSION['content_title'] = $content['title'];
+	// $_SESSION['content_text'] = $content['content'];
+	// $_SESSION['content_img'] = $content['image_path'];
+	// $_SESSION['content_url'] = $content['video_url'];
+	// $_SESSION['content_status'] = $content['process_status'];
+	// $_SESSION['content_release'] = $content['released_at'];
+    // $_SESSION['content_hide'] = $content['deleted_at'];
 
     print_r($_POST);
 
     //受け取ったデータを書き込むsab
 	if (isset($_POST["action"])) {
+        $id = $_SESSION['content_id'];
         $process = '2';
         //$content = $_POST["content"];
-		$sql = "UPDATE contents SET process_status = :process, updated_at = CURRENT_TIMESTAMP  WHERE id = 2;";
+		$sql = "UPDATE contents SET process_status = :process, updated_at = CURRENT_TIMESTAMP  WHERE id = :id;";
 		$stmt = $pdo->prepare($sql);
-		$stmt -> bindValue(":process", $process, PDO::PARAM_INT);
+        $stmt -> bindValue(":process", $process, PDO::PARAM_INT);
+        $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
 		$stmt -> execute();
-	}
-    
+	}    
     // // 受け取ったデータを書き込む
 	// //if (isset($_POST["action"])) {
     //     $content = "2";
