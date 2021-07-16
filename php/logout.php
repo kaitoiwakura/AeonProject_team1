@@ -2,4 +2,5 @@
 	session_start();
 	$_SESSION = array();
 	header("Location:../views/login.html");
+	exit();
 ?>
