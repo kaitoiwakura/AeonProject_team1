@@ -71,7 +71,7 @@
 				<?php if($content['contents_category'] == 1) { ?>
 					<!-- お知らせの場合 -->
 					<div class="row text-center">
-						<p class="h3"><?php print $content['title']; ?></p>
+						<p class="h3"><?php echo $content['title']; ?></p>
 					</div>
 
 					<div class="row">
@@ -88,14 +88,14 @@
 						</div>
 
 						<div class="row">
-							<p><?php print $content['content']; ?></p>
+							<p><?php echo $content['content']; ?></p>
 						</div>
 					</div>
 
 				<?php } else if($content['contents_category'] == 2) { ?>
 					<!-- HAL学生制作の場合 -->
 					<div class="row text-center">
-						<p class="h3"><?php print $content['title']; ?></p>
+						<p class="h3"><?php echo $content['title']; ?></p>
 					</div>
 
 					<div class="row">
@@ -109,7 +109,7 @@
 				<?php } else { ?>
 					<!-- 企業商品紹介の場合 -->
 					<div class="row text-center">
-						<p class="h3"><?php print $content['title']; ?></p>
+						<p class="h3"><?php echo $content['title']; ?></p>
 					</div>
 
 					<div class="row">
@@ -126,7 +126,7 @@
 						</div>
 
 						<div class="row">
-							<p><?php print $content['content']; ?></p>
+							<p><?php echo $content['content']; ?></p>
 						</div>
 					</div>
 				<?php } ?>
@@ -153,9 +153,18 @@
 							<label class="form-check-label me-4">非公開</label>
 						</div>
 
+						<div class="row" id="reject-reason">
+							<div class="row m-3">
+								<label for="reason" class="col-3 col-form-label">却下理由</label>
+								<div class="col-8">
+									<input type="text" class="form-control" id="reason" name="reason">
+								</div>
+							</div>
+						</div>
+
 						<div class="row">
 							<!-- Modal trigger -->
-							<button type="button" class="btn btn-secondary my-2" style="width: fit-content;" data-bs-toggle="modal" data-bs-target="#confirmModal">
+							<button type="button" id="modal-open" class="btn btn-secondary my-2" style="width: fit-content;" data-bs-toggle="modal" data-bs-target="#confirmModal" disabled>
 								実行する
 							</button>
 						</div>
@@ -182,32 +191,47 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-				//ラジオボタンの選択によってformのactionとmodalの文言を変更
+				//ラジオボタンの選択状態によって色々変更
 				$("[name='action']").change(function() {
+					//どれか選択されたらボタンが押せるようになる
+					$("#modal-open").prop("disabled", false);
+
 					//選択中のラジオボタンのvalueを取得
 					var cur_value = $(this).val();
 					var act = "";
 					var msg = "";
 					
-					//valueによって遷移先と文言を変更
-					if (cur_value == "edit") { //編集の場合
+					//valueによって遷移先とmodalの文言を変更
+					//編集の場合
+					if (cur_value == "edit") {
 						act = "./content_edit.php";
 						msg = "<div id='msg'>コンテンツを編集します。よろしいですか？</div>";
+						$("#reject-reason").hide();
+						$('input[type="text"]').prop("required", false);
 					}
-					if (cur_value == "accept") { //承認の場合
+					//承認の場合
+					if (cur_value == "accept") {
 						act = "../php/content_accept.php";
 						msg = "<div id='msg'>コンテンツを承認します。よろしいですか？</div>";
+						$("#reject-reason").hide();
+						$('input[type="text"]').prop("required", false);
 					}
-					if (cur_value == "reject") { //却下の場合
+					//却下の場合
+					if (cur_value == "reject") {
 						act = "../php/content_reject.php";
 						msg = "<div id='msg'>コンテンツを却下します。よろしいですか？</div>";
+						$("#reject-reason").show();
+						$('input[type="text"]').prop("required", true);
 					}
-					if (cur_value == "hide") { //非表示の場合
+					//非表示の場合
+					if (cur_value == "hide") {
 						act = "../php/content_hide.php";
 						msg = "<div id='msg'>コンテンツを非表示にします。よろしいですか？</div>";
+						$("#reject-reason").hide();
+						$('input[type="text"]').prop("required", false);
 					}
 
-					$("#process").attr("action", act); //formのactionを変える
+					$("#process").prop("action", act); //formのactionを変える
 					$("#msg").replaceWith(msg); //modalの文章を変える
 				});
 			});
